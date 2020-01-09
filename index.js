@@ -24,15 +24,20 @@ function requestLoop (urls, index, operation, callback) {
     }
     
     if (urls.length) {
-        let url = urls[index];
-        if (typeof url !== 'string') {
-            url = parseOptions(url);
-            console.log(`Requesting ${url.url} ...`);
+        let config = urls[index];
+        if (typeof config !== 'string') {
+            config = parseOptions(config);
+            console.log(`Requesting ${config.url} ...`);
+            for (let option in config) {
+                if (option !== 'url') {
+                    console.log(`  - [${option}] ${config[option]}`);
+                }
+            }
         } else {
-            url = encodeURI(url);
-            console.log(`Requesting ${url} ...`);
+            config = encodeURI(config);
+            console.log(`Requesting ${config} ...`);
         }
-        request(url).then(response => {
+        request(config).then(response => {
             return operation(response);
         }).then(() => {
             next();
