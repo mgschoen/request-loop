@@ -1,5 +1,18 @@
 const request = require('request-promise-native');
 
+function parseOptions (requestConfig) {
+    
+    if (!requestConfig.url || typeof requestConfig.url !== 'string') {
+        throw new Error('option `url` must be of type \'string\'');
+    }
+    
+    return {
+        url: encodeURI(requestConfig.url),
+        method: requestConfig.method || 'GET',
+        body: requestConfig.body || ''
+    };
+}
+
 function requestLoop (urls, index, operation, callback) {
 
     let next = function () {
@@ -11,8 +24,15 @@ function requestLoop (urls, index, operation, callback) {
     }
     
     if (urls.length) {
-        console.log(`Requesting ${urls[index]} ...`);
-        request(encodeURI(urls[index])).then(response => {
+        let url = urls[index];
+        if (typeof url !== 'string') {
+            url = parseOptions(url);
+            console.log(`Requesting ${url.url} ...`);
+        } else {
+            url = encodeURI(url);
+            console.log(`Requesting ${url} ...`);
+        }
+        request(url).then(response => {
             return operation(response);
         }).then(() => {
             next();
