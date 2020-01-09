@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/mgschoen/request-loop.git"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Request one URL at a time and perform an operation on the response",
   "main": "index.js",
   "scripts": {
