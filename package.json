@@ -1,5 +1,9 @@
 {
-  "name": "request-loop",
+  "name": "request-after-request",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mgschoen/request-loop.git"
+  },
   "version": "1.0.0",
   "description": "Request one URL at a time and perform an operation on the response",
   "main": "index.js",
